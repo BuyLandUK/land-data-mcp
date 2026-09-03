@@ -51,11 +51,26 @@ server.registerTool(
 );
 
 server.registerTool(
+  "property_value",
+  {
+    title: "Indicative value of a dwelling",
+    description:
+      "Indicative low/mid/high value of a HOUSE or FLAT at a UK postcode, from HM Land Registry sales at or near the postcode uprated to today. Use land_value for bare land instead; if unsure, call registered_parcel first and follow its suggested_valuation. Not a survey or mortgage valuation. Cite attribution and source_url.",
+    inputSchema: {
+      postcode: z.string().describe("Full UK postcode"),
+      bedrooms: z.number().int().min(1).max(6).optional().describe("Default 3"),
+      bathrooms: z.number().int().min(1).max(4).optional().describe("Default 1"),
+    },
+  },
+  (args) => call("/property-value", args),
+);
+
+server.registerTool(
   "registered_parcel",
   {
     title: "Registered land parcel at a point",
     description:
-      "The HM Land Registry INSPIRE registered-land parcel containing a WGS84 point in England: inspire_id, area (m² and acres), centroid and simplified GeoJSON geometry. Pass a postcode to load the local authority's parcels if the area hasn't been requested before.",
+      "The HM Land Registry INSPIRE registered-land parcel containing a WGS84 point in England: inspire_id, area (m² and acres), centroid, simplified GeoJSON geometry, buildings_count (mapped buildings inside the parcel) and suggested_valuation (property_value if it has buildings, land_value if bare). Pass a postcode to load the local authority's parcels if the area hasn't been requested before.",
     inputSchema: { lat: z.number().describe("Latitude"), lng: z.number().describe("Longitude"), postcode: z.string().optional() },
   },
   (args) => call("/parcel", args),

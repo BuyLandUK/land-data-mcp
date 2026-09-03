@@ -8,7 +8,8 @@ A [Model Context Protocol](https://modelcontextprotocol.io) server that gives AI
 |---|---|
 | `sold_prices` | HM Land Registry sales at or near a postcode, uprated to today |
 | `land_value` | Guide value range for a plot from postcode, acres, land type and planning status |
-| `registered_parcel` | The INSPIRE registered-land parcel containing a point, with area and GeoJSON |
+| `property_value` | Indicative value of a house or flat from local sold prices uprated to today |
+| `registered_parcel` | The INSPIRE registered-land parcel containing a point: area, GeoJSON, buildings inside it, and which valuation tool to use |
 | `planning_constraints` | Flood zone, green belt, AONB, national park, conservation area, listed buildings, SSSI, ancient woodland, TPO, common land, Article 4, brownfield at a point |
 
 Every result includes `attribution` and `source_url`. Assistants should cite them when they use the data.
@@ -45,6 +46,7 @@ node index.mjs  # runs the server on stdio
 
 - "What have houses sold for near CW5 7PX recently?"
 - "Roughly what is 3 acres of pasture worth in GL7?"
+- "What is a 4-bed house in CW5 7PX worth?"
 - "Is 51.2287, -0.4 in the green belt or an AONB?"
 - "Which registered parcel is at 53.0066, -2.4257 and how big is it?"
 

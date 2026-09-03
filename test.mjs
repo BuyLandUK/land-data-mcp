@@ -10,4 +10,6 @@ const sales = await client.callTool({ name: "sold_prices", arguments: { postcode
 console.log("sold_prices:", sales.content[0].text.slice(0, 160).replace(/\n/g, " "), "…");
 const cons = await client.callTool({ name: "planning_constraints", arguments: { lat: 51.2287, lng: -0.4, radius_m: 50 } });
 console.log("planning_constraints flagged:", JSON.parse(cons.content[0].text).flagged);
+const pv = await client.callTool({ name: "property_value", arguments: { postcode: "CW5 7PX", bedrooms: 4 } });
+console.log("property_value mid:", JSON.parse(pv.content[0].text).mid);
 await client.close();
